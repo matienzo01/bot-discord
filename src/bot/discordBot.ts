@@ -1,5 +1,6 @@
-import { Client, GatewayIntentBits, TextChannel } from 'discord.js';
+import { Client, Events, GatewayIntentBits, Interaction, TextChannel } from 'discord.js';
 import { CHANNEL_ID } from '../constanst';
+import { addToWhitelist } from '../rcon';
 
 const client = new Client({
   intents: [
@@ -23,6 +24,26 @@ client.once('ready', () => {
 client.on('guildMemberAdd', async (member) => {
   console.log(`[Discord] Nuevo miembro: ${member.user.username}`);
   await sendMessage(CHANNEL_ID, `Hola ${member.user.username}!`);
+});
+
+client.on(Events.InteractionCreate, async (interaction: Interaction) => {
+  if (!interaction.isChatInputCommand()) return;
+
+  if (interaction.commandName === 'whitelist') {
+    const subcommand = interaction.options.getSubcommand();
+
+    if (subcommand === 'add') {
+      const usuario = interaction.options.getString('usuario', true);
+
+      try {
+        const rconResponse = await addToWhitelist(usuario);
+        await interaction.reply(`✅ ${usuario} agregado: ${rconResponse}`);
+      } catch (error) {
+        console.error(error);
+        await interaction.reply('❌ Error al comunicarse con el servidor de Minecraft.');
+      }
+    }
+  }
 });
 
 client.login(process.env.DISCORD_TOKEN);
