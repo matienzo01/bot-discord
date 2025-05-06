@@ -1,9 +1,9 @@
 import { Router } from 'express';
 import { TextChannel } from 'discord.js';
 import client from '../../bot/discordBot';
+import { CHANNEL_ID } from '../../constanst';
 
 const router = Router();
-const CHANNEL_ID = '1236092295997034607'; // Reemplazar con el ID real del canal de texto
 
 router.post('/', async (req, res) => {
   const { content } = req.body;
