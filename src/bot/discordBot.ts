@@ -1,6 +1,8 @@
 import { Client, Events, GatewayIntentBits, Interaction, TextChannel } from 'discord.js';
 import { CHANNEL_ID } from '../constanst';
-import { addToWhitelist } from '../rcon';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const client = new Client({
   intents: [
@@ -36,7 +38,7 @@ client.on(Events.InteractionCreate, async (interaction: Interaction) => {
       const usuario = interaction.options.getString('usuario', true);
 
       try {
-        const rconResponse = await addToWhitelist(usuario);
+        const rconResponse = 'test' //await addToWhitelist(usuario);
         await interaction.reply(`✅ ${usuario} agregado: ${rconResponse}`);
       } catch (error) {
         console.error(error);
