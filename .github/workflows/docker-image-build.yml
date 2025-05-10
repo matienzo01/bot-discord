@@ -29,8 +29,8 @@ jobs:
           push: true
           file: Dockerfile.prod
           tags: |
-            ghcr.io/tu_usuario/nombre-app:latest
-            ghcr.io/tu_usuario/nombre-app:${{ github.sha }}
+            ghcr.io/matienzo01/bot-discord:latest
+            ghcr.io/matienzo01/bot-discord:${{ github.sha }}
 
       - name: Desplegar en servidor remoto
         uses: cssnr/stack-deploy-action@v1
