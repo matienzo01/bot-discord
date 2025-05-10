@@ -1,0 +1,24 @@
+# Imagen base de Node.js
+FROM node:20-slim
+
+# Establecer directorio de trabajo
+WORKDIR /app
+
+# Copiar solo los archivos relevantes para instalar dependencias
+COPY package.json pnpm-lock.yaml ./
+
+# Instalar dependencias (sin dependencias de desarrollo)
+RUN npm install -g pnpm
+RUN pnpm install --frozen-lockfile --prod
+
+# Copiar el código fuente al contenedor
+COPY . .
+
+# Compilar TypeScript a JavaScript
+RUN pnpm run build
+
+# Exponer el puerto de la aplicación
+EXPOSE 3000
+
+# Ejecutar la aplicación con Node.js
+CMD ["node", "dist/index.js"]

@@ -1,20 +1,13 @@
 # Usar imagen base de Node.js
 FROM node:20-slim
 
-# Instalar dependencias del sistema necesarias
-RUN apt-get update && apt-get install -y \
-    python3 \
-    make \
-    g++ \
-    && rm -rf /var/lib/apt/lists/*
-
 # Establecer directorio de trabajo
 WORKDIR /app
 
 # Copiar solo los archivos relevantes para instalar dependencias
 COPY package.json pnpm-lock.yaml ./
 
-# Instalar dependencias
+# Instalar dependencias (pnpm global y las del proyecto)
 RUN npm install -g pnpm
 RUN pnpm install --frozen-lockfile
 
@@ -28,5 +21,5 @@ ENV NODE_OPTIONS="--max-old-space-size=4096"
 # Expone el puerto de la aplicación
 EXPOSE 3000
 
-# Comando para ejecutar en el contenedor
+# Comando para ejecutar en el contenedor (con hot reload para desarrollo)
 CMD ["pnpm", "dev"]

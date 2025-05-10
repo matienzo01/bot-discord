@@ -24,13 +24,7 @@ async function bootstrap() {
     validation: true,
     cors: true,
     routePrefix: '/api',
-    defaultErrorHandler: true,
-    errorOverridingMap: {
-      HttpError: (error) => ({
-        status: error.httpCode,
-        message: error.message
-      })
-    }
+    defaultErrorHandler: true
   });
 
   // Levantar servidor

@@ -1,0 +1,42 @@
+name: Build and Deploy Docker Stack
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+    types: [closed]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout del código
+        uses: actions/checkout@v3
+
+      - name: Iniciar sesión en GHCR
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Construir y subir imagen
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: |
+            ghcr.io/tu_usuario/nombre-app:latest
+            ghcr.io/tu_usuario/nombre-app:${{ github.sha }}
+
+      - name: Desplegar en servidor remoto
+        uses: cssnr/stack-deploy-action@v1
+        with:
+          name: bot-discord
+          file: docker-compose.prod.yml
+          host: ${{ secrets.REMOTE_HOST }}
+          user: ${{ secrets.REMOTE_USER }}
+          ssh_key: ${{ secrets.REMOTE_SSH_KEY }}
+          registry_auth: true
