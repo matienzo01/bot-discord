@@ -39,9 +39,6 @@ jobs:
       - name: Subir archivo .env al servidor remoto
         run: |
           echo "DISCORD_TOKEN=${{ secrets.DISCORD_TOKEN }}" > .env
-          echo "${{ secrets.REMOTE_SSH_KEY }}" > ./private_key.pem
-          chmod 600 ./private_key.pem
-          scp -o StrictHostKeyChecking=no -i ./private_key.pem .env ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }}:~/bot-discord.env
 
       - name: Desplegar en servidor remoto
         uses: cssnr/stack-deploy-action@v1
