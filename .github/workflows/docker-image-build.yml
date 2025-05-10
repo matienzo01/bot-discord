@@ -27,6 +27,7 @@ jobs:
         with:
           context: .
           push: true
+          file: Dockerfile.prod
           tags: |
             ghcr.io/tu_usuario/nombre-app:latest
             ghcr.io/tu_usuario/nombre-app:${{ github.sha }}
