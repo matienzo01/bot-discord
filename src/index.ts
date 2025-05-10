@@ -6,6 +6,7 @@ import { MembersController } from './controllers/members.controller';
 import { MessagesController } from './controllers/messages.controller';
 import { container } from './config/inversify.config';
 import { InversifyAdapter } from './config/inversify.adapter';
+import { StatusController } from './controllers/status.controller';
 
 async function bootstrap() {
   // Configurar DI con Inversify
@@ -19,7 +20,7 @@ async function bootstrap() {
 
   // Configurar routing-controllers sobre la app existente
   useExpressServer(app, {
-    controllers: [MembersController, MessagesController],
+    controllers: [MembersController, MessagesController, StatusController],
     classTransformer: true,
     validation: true,
     cors: true,
