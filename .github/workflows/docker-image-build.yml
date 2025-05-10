@@ -52,7 +52,7 @@ jobs:
           user: ${{ secrets.REMOTE_USER }}
           ssh_key: ${{ secrets.REMOTE_SSH_KEY }}
           registry_auth: true
-          env_file: bot-discord.env
+          env_file: ~/bot-discord.env
 
       - name: Eliminar clave SSH
         run: |
