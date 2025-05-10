@@ -36,7 +36,7 @@ jobs:
             ghcr.io/matienzo01/bot-discord:latest
             ghcr.io/matienzo01/bot-discord:${{ github.sha }}
 
-      - name: Subir archivo .env al servidor remoto
+      - name: Crear .env
         run: |
           echo "DISCORD_TOKEN=${{ secrets.DISCORD_TOKEN }}" > .env
 
@@ -50,7 +50,3 @@ jobs:
           ssh_key: ${{ secrets.REMOTE_SSH_KEY }}
           registry_auth: true
           env_file: .env
-
-      - name: Eliminar clave SSH
-        run: |
-          rm -f ./private_key.pem
