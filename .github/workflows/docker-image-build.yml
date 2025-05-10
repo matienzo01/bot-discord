@@ -40,7 +40,7 @@ jobs:
         uses: cssnr/stack-deploy-action@v1
         with:
           name: bot-discord
-          file: docker-compose.prod.yml
+          file: docker-compose.stack.yml
           host: ${{ secrets.REMOTE_HOST }}
           user: ${{ secrets.REMOTE_USER }}
           ssh_key: ${{ secrets.REMOTE_SSH_KEY }}
