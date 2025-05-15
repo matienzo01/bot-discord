@@ -1,5 +1,6 @@
-import { Controller, Post, Body } from 'routing-controllers';
+import { Controller, Post, Body, Authorized } from 'routing-controllers';
 
+@Authorized()
 @Controller('/members')
 export class MembersController {
   @Post()

@@ -39,6 +39,7 @@ jobs:
       - name: Crear .env
         run: |
           echo "DISCORD_TOKEN=${{ secrets.DISCORD_TOKEN }}" > .env
+          echo "API_TOKEN=${{ secrets.API_TOKEN }}" >> .env
 
       - name: Desplegar en servidor remoto
         uses: cssnr/stack-deploy-action@v1
