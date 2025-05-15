@@ -7,6 +7,7 @@ services:
     environment:
       - NODE_ENV=production
       - DISCORD_TOKEN=${DISCORD_TOKEN}
+      - API_TOKEN=${API_TOKEN}
     deploy:
       replicas: 1
       restart_policy:
