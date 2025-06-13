@@ -1,9 +1,9 @@
 .env
 
-./dist
 node_modules
 
 .vscode
 .cursor
 
 bruno/collection.bru
+dist
