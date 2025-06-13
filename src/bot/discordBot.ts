@@ -23,7 +23,7 @@ client.once('ready', () => {
   console.log(`[Discord] Bot conectado como ${client.user?.tag}`);
 });
 
-client.on('guildMemberAdd', async (member) => {
+client.on(Events.GuildMemberAdd, async (member) => {
   console.log(`[Discord] Nuevo miembro: ${member.user.username}`);
   await sendMessage(CHANNEL_ID, `Hola ${member.user.username}!`);
 });
