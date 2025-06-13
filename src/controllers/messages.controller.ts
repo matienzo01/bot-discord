@@ -1,16 +1,16 @@
 import { Controller, Post, Body, HttpError, Req, Authorized } from 'routing-controllers';
-import { inject } from 'inversify';
-import { TYPES } from '../config/types';
+import { inject, injectable } from 'inversify';
 import { DiscordService } from '../services/discord.service';
 import { CHANNEL_ID } from '../constanst';
 import { TextChannel } from 'discord.js';
 import { Request } from 'express';
 
+@injectable()
 @Authorized()
 @Controller('/messages')
 export class MessagesController {
   constructor(
-    @inject(TYPES.DiscordService) private discordSrv: DiscordService
+    @inject(DiscordService) private discordSrv: DiscordService
   ) { }
 
   @Post()

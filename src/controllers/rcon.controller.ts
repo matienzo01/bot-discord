@@ -1,13 +1,12 @@
 import { Post, Body, Controller, Authorized } from 'routing-controllers';
 import { inject } from 'inversify';
-import { TYPES } from '../config/types';
 import { RconService } from '../services/rcon.service';
 
 @Authorized()
 @Controller('/rcon')
 export class RconController {
   constructor(
-    @inject(TYPES.RconService) private rconService: RconService
+    @inject(RconService) private rconService: RconService
   ) { }
 
   @Post('/command')
