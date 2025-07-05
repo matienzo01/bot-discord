@@ -26,6 +26,32 @@ client.once('ready', () => {
 client.on(Events.GuildMemberAdd, async (member) => {
   console.log(`[Discord] Nuevo miembro: ${member.user.username}`);
   await sendMessage(CHANNEL_ID, `Hola ${member.user.username}!`);
+
+  // Buscar el rol "normal" en el servidor
+  let role = member.guild.roles.cache.find(r => r.name === 'normal');
+
+  // Si no existe, crearlo
+  if (!role) {
+    try {
+      role = await member.guild.roles.create({
+        name: 'normal',
+        color: 'Default', // Puedes cambiar el color si quieres
+        reason: 'Rol por defecto para nuevos miembros',
+      });
+      console.log('[Discord] Rol "normal" creado.');
+    } catch (error) {
+      console.error('[Discord] Error al crear el rol "normal":', error);
+      return;
+    }
+  }
+
+  // Asignar el rol al nuevo miembro
+  try {
+    await member.roles.add(role);
+    console.log(`[Discord] Rol "normal" asignado a ${member.user.username}`);
+  } catch (error) {
+    console.error(`[Discord] Error al asignar el rol a ${member.user.username}:`, error);
+  }
 });
 
 client.on(Events.InteractionCreate, async (interaction: Interaction) => {
