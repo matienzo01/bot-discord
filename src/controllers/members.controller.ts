@@ -2,6 +2,7 @@ import { Controller, Post, Body, Authorized } from 'routing-controllers';
 import { DiscordService } from '../services/discord.service';
 import { inject } from 'inversify';
 import { HttpError } from 'routing-controllers';
+import { GUILD_ID, PROS_ROLE_ID } from '../constanst';
 
 @Authorized()
 @Controller('/members')
@@ -19,13 +20,13 @@ export class MembersController {
   @Post('/pros')
   async addProsRole(@Body() body: { userId: string }) {
     const client = this.discordSrv.getClient();
-    const guild = await client.guilds.fetch('1390837432169005056');
+    const guild = await client.guilds.fetch(GUILD_ID);
     if (!guild) throw new HttpError(500, 'No se encontró el servidor de Discord');
 
     const member = await guild.members.fetch(body.userId).catch(() => null);
     if (!member) throw new HttpError(404, 'Usuario no encontrado');
 
-    let role = guild.roles.cache.find(r => r.name === 'pros');
+    let role = await guild.roles.fetch(PROS_ROLE_ID);
     if (!role) {
       try {
         role = await guild.roles.create({
