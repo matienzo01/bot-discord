@@ -12,9 +12,8 @@ on:
     types: [closed]
 
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout del código
         uses: actions/checkout@v3
@@ -35,6 +34,14 @@ jobs:
           tags: |
             ghcr.io/matienzo01/bot-discord:latest
             ghcr.io/matienzo01/bot-discord:${{ github.sha }}
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.pull_request.merged == true)
+    steps:
+      - name: Checkout del código
+        uses: actions/checkout@v3
 
       - name: Crear .env
         run: |
