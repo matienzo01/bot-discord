@@ -8,6 +8,7 @@ import { container } from './config/inversify.config';
 import { InversifyAdapter } from './config/inversify.adapter';
 import { StatusController } from './controllers/status.controller';
 import { ErrorHandler } from './middleweres/errors/defaultErrors';
+import { authorizationChecker } from './middleweres/auth/authorizationChecker';
 
 async function bootstrap() {
   // Configurar DI con Inversify
@@ -27,13 +28,7 @@ async function bootstrap() {
     cors: true,
     routePrefix: '/api',
     defaultErrorHandler: false,
-    authorizationChecker: (action, roles) => {
-      const token = action.request.headers['authorization'];
-      if (token === process.env.API_TOKEN) {
-        return true;
-      }
-      return false;
-    },
+    authorizationChecker,
     middlewares: [ErrorHandler]
   });
 
