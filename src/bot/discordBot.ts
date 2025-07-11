@@ -1,5 +1,5 @@
 import { Client, Events, GatewayIntentBits, Interaction, TextChannel } from 'discord.js';
-import { CHANNEL_ID } from '../constants';
+import { MAIN_CHANNEL_ID, PROS_CHANNEL_ID, PROS_ROLE_ID } from '../constants';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -26,7 +26,7 @@ client.once('ready', () => {
 
 client.on(Events.GuildMemberAdd, async (member) => {
   console.log(`[Discord] Nuevo miembro: ${member.user.username}`);
-  await sendMessage(CHANNEL_ID, `Hola ${member.user.username}!`);
+  await sendMessage(MAIN_CHANNEL_ID, `Hola ${member.user.username}!`);
 
   // Buscar el rol "normal" en el servidor
   let role = member.guild.roles.cache.find(r => r.name === 'normal');
@@ -52,6 +52,18 @@ client.on(Events.GuildMemberAdd, async (member) => {
     console.log(`[Discord] Rol "normal" asignado a ${member.user.username}`);
   } catch (error) {
     console.error(`[Discord] Error al asignar el rol a ${member.user.username}:`, error);
+  }
+});
+
+client.on(Events.GuildMemberUpdate, async (oldMember, newMember) => {
+  const oldRoles = oldMember.roles.cache;
+  const newRoles = newMember.roles.cache;
+
+  const hasProRole = newRoles.has(PROS_ROLE_ID);
+  const hadProRole = oldRoles.has(PROS_ROLE_ID);
+
+  if (!hadProRole && hasProRole) {
+    await sendMessage(PROS_CHANNEL_ID, `:exclamation: Felicidades <@${newMember.id}>! Ahora eres un Pro.`);
   }
 });
 

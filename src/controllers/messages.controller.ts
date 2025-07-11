@@ -1,7 +1,7 @@
 import { Controller, Post, Body, HttpError, Req, Authorized } from 'routing-controllers';
 import { inject, injectable } from 'inversify';
 import { DiscordService } from '../services/discord.service';
-import { CHANNEL_ID } from '../constants';
+import { MAIN_CHANNEL_ID } from '../constants';
 import { TextChannel } from 'discord.js';
 import { Request } from 'express';
 
@@ -28,7 +28,7 @@ export class MessagesController {
       }
 
       const client = this.discordSrv.getClient();
-      const channel = await client.channels.fetch(CHANNEL_ID);
+      const channel = await client.channels.fetch(MAIN_CHANNEL_ID);
 
       if (!channel?.isTextBased()) {
         throw new HttpError(400, 'Canal inválido');
