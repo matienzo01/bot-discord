@@ -1,7 +1,7 @@
 import { Controller, Post, Body, HttpError, Req, Authorized } from 'routing-controllers';
 import { inject, injectable } from 'inversify';
 import { DiscordService } from '../services/discord.service';
-import { CHANNEL_ID } from '../constanst';
+import { CHANNEL_ID } from '../constants';
 import { TextChannel } from 'discord.js';
 import { Request } from 'express';
 

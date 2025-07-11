@@ -1,7 +1,7 @@
 import { injectable } from 'inversify';
 import client from '../bot/discordBot';
 import { HttpError } from 'routing-controllers';
-import { GUILD_ID, PROS_ROLE_ID } from '../constanst';
+import { GUILD_ID, PROS_ROLE_ID } from '../constants';
 
 @injectable()
 export class DiscordService {

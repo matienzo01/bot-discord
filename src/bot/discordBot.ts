@@ -1,5 +1,5 @@
 import { Client, Events, GatewayIntentBits, Interaction, TextChannel } from 'discord.js';
-import { CHANNEL_ID } from '../constanst';
+import { CHANNEL_ID } from '../constants';
 import dotenv from 'dotenv';
 
 dotenv.config();
