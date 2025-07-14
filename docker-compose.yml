@@ -11,6 +11,12 @@ services:
       - "3000:3000"
     environment:
       - NODE_ENV=development
+      - DB_HOST=database
+      - DB_PORT=5432
+      - DB_NAME=minecraft
+      - DB_ADMIN_USER=username
+      - DB_ADMIN_PASSWORD=passw0rd
+      - LUCKPERMS_API_URL=http://luckperms:8080
     networks:
       - app-network
   luckperms:
@@ -32,8 +38,7 @@ services:
     networks:
       - app-network
     ports:
-      #- 8080:8080
-      - 3001:3001
+      - "8080:8080"
 
   database:
     # Official Postgres image from DockerHub (we use the last version)
