@@ -1,5 +1,4 @@
 import 'reflect-metadata';
-// import './bot/discordBot'; // Comentado temporalmente para testing
 import express from 'express';
 import { useExpressServer, useContainer, UnauthorizedError } from 'routing-controllers';
 import { MembersController } from './controllers/members.controller';
